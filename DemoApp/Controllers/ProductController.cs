@@ -13,9 +13,22 @@ namespace DemoApp.Controllers
     {
         public IActionResult Index()
         {
-            HardCodedSampleDataRepository hardCodedSampleDataRepository = new HardCodedSampleDataRepository();
+            ProductsDAO products = new ProductsDAO();
 
-            return View(hardCodedSampleDataRepository.GetAllProducts());
+            return View(products.GetAllProducts());
+        }
+
+        public IActionResult SearchResults(string searchTerm)
+        {
+            ProductsDAO products = new ProductsDAO();
+
+            List<ProductModel> prodList = products.SearchProducts(searchTerm);
+            return View("index", prodList);
+        }
+
+        public IActionResult SearchForm()
+        {
+            return View();
         }
 
         public IActionResult Message()
