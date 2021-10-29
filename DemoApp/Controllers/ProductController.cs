@@ -29,6 +29,7 @@ namespace DemoApp.Controllers
             return View("index", prodList);
         }
 
+        [AllowAnonymous]
         public IActionResult ShowDetails(int id)
         {
             ProductsDAO product = new ProductsDAO();
