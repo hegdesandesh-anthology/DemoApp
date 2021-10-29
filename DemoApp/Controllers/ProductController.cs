@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using DemoApp.Models;
 using DemoApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace DemoApp.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
+        [AllowAnonymous]
         public IActionResult Index()
         {
             ProductsDAO products = new ProductsDAO();
@@ -33,6 +36,7 @@ namespace DemoApp.Controllers
             return View(foundProduct);
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             ProductsDAO products = new ProductsDAO();
@@ -40,6 +44,7 @@ namespace DemoApp.Controllers
             return View("ShowEdit", foundProduct);
         }
 
+        [HttpPost]
         public IActionResult ProcessEdit(ProductModel product)
         {
             ProductsDAO products = new ProductsDAO();
@@ -60,11 +65,13 @@ namespace DemoApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View("Create");  
         }
 
+        [HttpPost]
         public IActionResult ProcessCreate(ProductModel product)
         {
             ProductsDAO products = new ProductsDAO();
